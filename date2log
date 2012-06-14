@@ -1,0 +1,22 @@
+#!/bin/sh
+
+ #
+ # dateg version 1
+ #  A formated date to write on change log file.
+ #
+ # Copyright (c) 2008  Dmitry Rocha. No restrictions. No warranties.
+ #
+ # Some individual files may be covered by other copyrights.
+ #
+ # Created on: 2008/07/27 22:35.
+ #
+ # Last update: 2008/07/27 22:36:04
+ #
+ # Changes:
+ #  2008/07/27 22:35 - Created the file with the copyright.
+ #  2008/07/27 22:36:04 - Added `echo' without new line at the end.
+ #
+
+DATE_CHANGELOG=$(date +"%Y/%m/%d %H:%M:%S")
+
+echo ${DATE_CHANGELOG}

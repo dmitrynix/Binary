@@ -1,0 +1,15 @@
+#!/bin/sh
+
+ #
+ # date-today version 1
+ #
+ #  A formated date to show year-month-day.
+ #
+ # Copyright (c) 2012  Dmitry Rocha. No restrictions. No warranties.
+ #
+ # Created on: Mon May 21 08:47:38 BRT 2012
+ #
+ # Last update: Mon May 21 08:47:47 BRT 2012
+ #
+
+echo $(date +"%Y-%m-%d")

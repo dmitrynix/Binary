@@ -1,0 +1,18 @@
+#!/bin/sh
+
+ #
+ # datef version 1
+ #  A formated date to write on log filename.
+ #
+ # Copyright (c) 2008  Dmitry Rocha. No restrictions. No warranties.
+ #
+ # Some individual files may be covered by other copyrights.
+ #
+ # Created on: Sun Dec 14 21:20:50 BRST 2008
+ #
+ # Last update: Sun Dec 14 21:20:50 BRST 2008
+ #
+
+DATE_CHANGELOG=$(date +"%Y-%m-%d_%H-%M-%S")
+
+echo ${DATE_CHANGELOG}
