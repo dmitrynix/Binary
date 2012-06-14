@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Set title of xterm compatible terminal
+# https://twitter.com/climagic/status/213264312372957184
+
+echo -ne "\033]0;${*}\a"
