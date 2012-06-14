@@ -1,0 +1,27 @@
+#!/bin/sh
+
+NAME=$(basename $0)
+PGPREFIX=${HOME}/Data/postgres
+PGDATA=${PGPREFIX}/9.1.3
+
+case "${1}" in
+build)
+  mkdir -p ${PGDATA}
+  initdb ${PGDATA}
+  ;;
+start)
+  pg_ctl -D ${PGDATA} -l ${PGPREFIX}/log start
+  ;;
+stop)
+  pg_ctl -D ${PGDATA} stop -s -m fast
+  ;;
+status)
+  pg_ctl -D ${PGDATA} status
+  ;;
+*)
+  echo "usage: ${NAME} { start | stop | status }" > /dev/stderr
+  exit 64
+  ;;
+esac
+
+exit 0

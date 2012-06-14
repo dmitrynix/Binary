@@ -1,0 +1,21 @@
+#!/bin/sh
+
+NAME=$(basename $0)
+dbprefix=${HOME}/Data/redis
+dbconf=${HOME}/Dropbox/Data/redis.conf
+
+case "${1}" in
+start)
+  mkdir -p ${dbprefix}/db >/dev/null 2>/dev/null
+  redis-server ${dbconf}
+  ;;
+stop)
+  echo 'control+x'
+  ;;
+*)
+  echo "usage: ${NAME} { start | stop }" > /dev/stderr
+  exit 64
+  ;;
+esac
+
+exit 0
