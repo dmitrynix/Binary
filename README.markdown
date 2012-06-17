@@ -8,4 +8,4 @@ Clone (or clone your fork):
 
 And add to PATH:
 
-   export PATH=${PATH}:${HOME}/Binary
+    export PATH=${PATH}:${HOME}/Binary
