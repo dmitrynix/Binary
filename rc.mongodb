@@ -4,8 +4,6 @@ NAME=$(basename $0)
 
 dbprefix=${HOME}/Data/mongodb
 
-mkdir -p "${dbprefix}/db" >/dev/null 2>/dev/null
-
 repair() {
   mongod --repair --dbpath ${dbprefix}/db
 }
@@ -19,13 +17,15 @@ stop() {
 }
 
 case "${1}" in
+build)
+  mkdir -p "${dbprefix}/db" >/dev/null 2>/dev/null ;;
 repair) repair ;;
 start) start ;;
 stop) stop ;;
 repair-start)
   rm "${dbprefix}/db/mongod.lock" && repair && start ;;
 *)
-  echo "usage: ${NAME} { start | stop | repair | repair-start }" > /dev/stderr
+  echo "usage: ${NAME} { build | start | stop | repair | repair-start }" > /dev/stderr
   exit 64
   ;;
 esac
