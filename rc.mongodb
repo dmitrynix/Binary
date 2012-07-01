@@ -21,6 +21,7 @@ build)
 repair) repair ;;
 start) start ;;
 stop) stop ;;
+restart) stop && start ;;
 repair-start)
   rm "${dbprefix}/db/mongod.lock" && repair && start ;;
 *)
