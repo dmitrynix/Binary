@@ -19,7 +19,7 @@ status)
   pg_ctl -D ${PGDATA} status
   ;;
 *)
-  echo "usage: ${NAME} { start | stop | status }" > /dev/stderr
+  echo "usage: ${NAME} { build | start | stop | status }" > /dev/stderr
   exit 64
   ;;
 esac
