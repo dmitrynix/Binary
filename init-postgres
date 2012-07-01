@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NAME=$(basename $0)
-PGPREFIX=${HOME}/Data/postgres
+PGPREFIX=${HOME}/Data/postgresql
 PGDATA=${PGPREFIX}/9.1.3
 
 case "${1}" in
