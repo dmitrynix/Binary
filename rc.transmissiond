@@ -1,0 +1,17 @@
+#!/bin/bash
+
+TRANSMISSION_HOME="/Users/transmission"
+TRANSMISSION_USER="transmission"
+TRANSMISSION_ARGS="-g ${TRANSMISSION_HOME}/.config/transmission -x ${TRANSMISSION_HOME}/.pid"
+TRANSMISSION_DAEMON="/opt/transmission-2.60/bin/transmission-daemon"
+
+case "${1}" in
+start)
+  su -l -s \
+    /bin/sh -c "${TRANSMISSION_DAEMON} ${TRANSMISSION_ARGS}" \
+    ${TRANSMISSION_USER}
+  ;;
+stop)
+  kill "$(cat ${TRANSMISSION_HOME}/.pid)"
+  ;;
+esac
