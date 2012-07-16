@@ -1,25 +1,27 @@
 #!/bin/sh
 
 NAME=$(basename $0)
-PGPREFIX=${HOME}/Data/postgresql
-PGDATA=${PGPREFIX}/9.1.3
+dbprefix=${HOME}/Data/postgresql
+
+start() {
+  pg_ctl -D ${dbprefix} start
+}
+
+stop() {
+  pg_ctl -D ${dbprefix} stop -s -m fast
+}
 
 case "${1}" in
 build)
-  mkdir -p ${PGDATA}
-  initdb ${PGDATA}
+  mkdir -p ${dbprefix} >/dev/null 2>/dev/null
+  initdb ${dbprefix}
   ;;
-start)
-  pg_ctl -D ${PGDATA} -l ${PGPREFIX}/log start
-  ;;
-stop)
-  pg_ctl -D ${PGDATA} stop -s -m fast
-  ;;
-status)
-  pg_ctl -D ${PGDATA} status
-  ;;
+start) start ;;
+stop) stop ;;
+restart) stop && start ;;
+status) pg_ctl -D ${dbprefix} status ;;
 *)
-  echo "usage: ${NAME} { build | start | stop | status }" > /dev/stderr
+  echo "usage: ${NAME} { build | start | stop | restart | status }" > /dev/stderr
   exit 64
   ;;
 esac
