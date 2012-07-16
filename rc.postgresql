@@ -3,6 +3,12 @@
 NAME=$(basename $0)
 dbprefix=${HOME}/Data/postgresql
 
+exit_without_dbprefix() {
+  echo "Not found ${dbprefix}" >/dev/stderr
+  echo "Use: ${NAME} build" >/dev/stderr
+  exit 1
+}
+
 start() {
   pg_ctl -D ${dbprefix} start
 }
@@ -10,6 +16,8 @@ start() {
 stop() {
   pg_ctl -D ${dbprefix} stop -s -m fast
 }
+
+[ -d "${dbprefix}" ] || exit_without_dbprefix
 
 case "${1}" in
 build)
