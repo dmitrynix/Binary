@@ -2,8 +2,9 @@
 
 TRANSMISSION_HOME="/Users/transmission"
 TRANSMISSION_USER="transmission"
+
+TRANSMISSION_DAEMON="transmission-daemon"
 TRANSMISSION_ARGS="-g ${TRANSMISSION_HOME}/.config/transmission -x ${TRANSMISSION_HOME}/.pid"
-TRANSMISSION_DAEMON="/opt/transmission-2.60/bin/transmission-daemon"
 
 case "${1}" in
 start)
