@@ -18,17 +18,17 @@ stop() {
 }
 
 case "${1}" in
-build)
-  mkdir -p ${dbprefix} >/dev/null 2>/dev/null
-  initdb ${dbprefix}
-  ;;
 start) start ;;
 stop) stop ;;
 restart) stop && start ;;
 status) pg_ctl -D ${dbprefix} status ;;
+build)
+  mkdir -p ${dbprefix} >/dev/null 2>/dev/null
+  initdb ${dbprefix}
+  ;;
 dbs) psql postgres -c 'select oid,datname from pg_database;' ;;
 *)
-  echo "usage: ${name} { build | start | stop | restart | status }" > /dev/stderr
+  echo "usage: ${name} { start | stop | restart | status | build | dbs }" > /dev/stderr
   exit 64
   ;;
 esac
