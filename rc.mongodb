@@ -1,37 +1,37 @@
 #!/bin/sh
 
-NAME=$(basename $0)
+name=`basename $0`
 dbprefix=${HOME}/Data/mongodb
 
-exit_without_dbprefix() {
-  echo "Not found ${dbprefix}" >/dev/stderr
-  echo "Use: ${NAME} build" >/dev/stderr
-  exit 1
-}
-
 repair() {
-  mongod --repair --dbpath ${dbprefix}/db
+  mongod --repair --dbpath ${dbprefix}
 }
 
 start() {
-  nohup mongod run --dbpath ${dbprefix}/db --logpath ${dbprefix}/log >/dev/null 2>/dev/null &
+  if [ -d "${dbprefix}" ]; then
+    nohup mongod run --dbpath ${dbprefix} --logpath /dev/null >/dev/null 2>/dev/null &
+  else
+    echo "Not found ${dbprefix}" >/dev/stderr
+    echo "Use: ${name} build" >/dev/stderr
+    exit 1
+  fi
 }
 
 stop() {
   mongo localhost/admin --eval "db.shutdownServer();" 2>/dev/null
 }
 
-[ -d "${dbprefix}" ] || exit_without_dbprefix
-
 case "${1}" in
-build) mkdir -p "${dbprefix}/db" >/dev/null 2>/dev/null ;;
+build) mkdir -p "${dbprefix}" >/dev/null 2>/dev/null ;;
 repair) repair ;;
 start) start ;;
 stop) stop ;;
 restart) stop && start ;;
-repair-start) rm "${dbprefix}/db/mongod.lock" && repair && start ;;
+repair-start) rm "${dbprefix}/mongod.lock" && repair && start ;;
 *)
-  echo "usage: ${NAME} { build | start | stop | restart | repair | repair-start }" > /dev/stderr
+  echo "usage: ${name} { build | start | stop | restart | repair | repair-start }" > /dev/stderr
   exit 64
   ;;
 esac
+
+exit 0
