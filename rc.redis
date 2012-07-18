@@ -56,13 +56,13 @@ stop() {
 }
 
 case "${1}" in
-build) mkdir -p ${dbprefix} >/dev/null 2>/dev/null ;;
 start) start ;;
 stop) stop ;;
 restart) stop && start ;;
+build) mkdir -p ${dbprefix} >/dev/null 2>/dev/null ;;
 ping|status) redis-cli ping ;;
 *)
-  echo "usage: ${name} { start | stop | restart | build | ping | status }" > /dev/stderr
+  echo "usage: ${name} { start | stop | restart | status | build }" > /dev/stderr
   exit 64
   ;;
 esac
