@@ -6,13 +6,22 @@ TRANSMISSION_USER="transmission"
 TRANSMISSION_DAEMON="transmission-daemon"
 TRANSMISSION_ARGS="-g ${TRANSMISSION_HOME}/.config/transmission -x ${TRANSMISSION_HOME}/.pid"
 
-case "${1}" in
-start)
+start() {
   su -l -s \
     /bin/sh -c "${TRANSMISSION_DAEMON} ${TRANSMISSION_ARGS}" \
     ${TRANSMISSION_USER}
-  ;;
-stop)
+}
+
+stop() {
   kill "$(cat ${TRANSMISSION_HOME}/.pid)"
+}
+
+case "${1}" in
+start) start ;;
+stop) stop ;;
+restart) stop && start ;;
+*)
+  echo "usage: ${name} { start | stop | restart }" > /dev/stderr
+  exit 64
   ;;
 esac
