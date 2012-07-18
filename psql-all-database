@@ -1,3 +1,0 @@
-#!/bin/bash
-
-psql postgres -c 'select oid,datname from pg_database;'
