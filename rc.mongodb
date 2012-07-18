@@ -22,14 +22,14 @@ stop() {
 }
 
 case "${1}" in
-build) mkdir -p "${dbprefix}" >/dev/null 2>/dev/null ;;
-repair) repair ;;
 start) start ;;
 stop) stop ;;
 restart) stop && start ;;
+build) mkdir -p "${dbprefix}" >/dev/null 2>/dev/null ;;
+repair) repair ;;
 repair-start) rm "${dbprefix}/mongod.lock" && repair && start ;;
 *)
-  echo "usage: ${name} { build | start | stop | restart | repair | repair-start }" > /dev/stderr
+  echo "usage: ${name} { start | stop | restart | build | repair | repair-start }" > /dev/stderr
   exit 64
   ;;
 esac
