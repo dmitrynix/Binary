@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/sh
 
 if [ -f "$(which gitg)" ]; then
   nohup gitg ${1} >/dev/null 2>/dev/null &

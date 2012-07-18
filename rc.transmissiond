@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 TRANSMISSION_HOME="/Users/transmission"
 TRANSMISSION_USER="transmission"
