@@ -1,19 +1,68 @@
 #!/bin/sh
 
-NAME=$(basename $0)
+name=`basename $0`
 dbprefix=${HOME}/Data/redis
-dbconf=${HOME}/Dropbox/Data/redis.conf
+
+# By default redis.conf: ` grep -iv '^#' redis.conf | grep -iv '^$' `
+dbconf=`cat <<EOF
+daemonize yes
+port 6379
+timeout 0
+loglevel warning
+logfile /dev/null
+databases 16
+save 900 1
+save 300 10
+save 60 10000
+rdbcompression yes
+dbfilename dump.rdb
+dir ${dbprefix}
+slave-serve-stale-data yes
+appendonly no
+appendfsync everysec
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+slowlog-log-slower-than 10000
+slowlog-max-len 128
+vm-enabled no
+vm-swap-file /tmp/redis.swap
+vm-max-memory 0
+vm-page-size 32
+vm-pages 134217728
+vm-max-threads 4
+hash-max-zipmap-entries 512
+hash-max-zipmap-value 64
+list-max-ziplist-entries 512
+list-max-ziplist-value 64
+set-max-intset-entries 512
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+activerehashing yes
+EOF`
+
+start() {
+  if [ -d "${dbprefix}" ]; then
+    echo "${dbconf}" | redis-server -
+  else
+    echo "Not found ${dbprefix}" > /dev/stderr
+    echo "Use: ${name} build" > /dev/stderr
+    exit 1
+  fi
+}
+
+stop() {
+  redis-cli shutdown
+}
 
 case "${1}" in
-start)
-  mkdir -p ${dbprefix}/db >/dev/null 2>/dev/null
-  redis-server ${dbconf}
-  ;;
-stop)
-  echo 'control+x'
-  ;;
+build) mkdir -p ${dbprefix} >/dev/null 2>/dev/null ;;
+start) start ;;
+stop) stop ;;
+restart) stop && start ;;
+ping|status) redis-cli ping ;;
 *)
-  echo "usage: ${NAME} { start | stop }" > /dev/stderr
+  echo "usage: ${name} { start | stop | restart | build | ping | status }" > /dev/stderr
   exit 64
   ;;
 esac
