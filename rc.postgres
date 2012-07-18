@@ -26,6 +26,7 @@ start) start ;;
 stop) stop ;;
 restart) stop && start ;;
 status) pg_ctl -D ${dbprefix} status ;;
+dbs) psql postgres -c 'select oid,datname from pg_database;' ;;
 *)
   echo "usage: ${name} { build | start | stop | restart | status }" > /dev/stderr
   exit 64
