@@ -4,7 +4,7 @@ TRANSMISSION_HOME="/Users/transmission"
 TRANSMISSION_USER="transmission"
 
 TRANSMISSION_DAEMON="transmission-daemon"
-TRANSMISSION_ARGS="-g ${TRANSMISSION_HOME}/.config/transmission -x ${TRANSMISSION_HOME}/.pid"
+TRANSMISSION_ARGS="-g ${TRANSMISSION_HOME}/.config/transmission --logfile /dev/null -x ${TRANSMISSION_HOME}/.pid"
 
 start() {
   su -l -s \
