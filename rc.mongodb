@@ -2,6 +2,7 @@
 
 name=`basename $0`
 dbprefix=${HOME}/Data/mongodb
+pidfile=${HOME}/Data/mongodb-pid
 
 repair() {
   mongod --repair --dbpath ${dbprefix}
@@ -9,7 +10,10 @@ repair() {
 
 start() {
   if [ -d "${dbprefix}" ]; then
-    nohup mongod run --dbpath ${dbprefix} --logpath /dev/null >/dev/null 2>/dev/null &
+    nohup mongod run \
+      --pidfilepath=$pidfile \
+      --dbpath ${dbprefix} \
+      --logpath /dev/null >/dev/null 2>/dev/null &
   else
     echo "Not found ${dbprefix}" >/dev/stderr
     echo "Use: ${name} build" >/dev/stderr
@@ -18,7 +22,8 @@ start() {
 }
 
 stop() {
-  mongo localhost/admin --eval "db.shutdownServer();" 2>/dev/null
+  kill `cat $pidfile`
+  rm $pidfile
 }
 
 case "${1}" in
