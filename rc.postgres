@@ -26,7 +26,7 @@ build)
   mkdir -p ${dbprefix} >/dev/null 2>/dev/null
   initdb ${dbprefix}
   ;;
-dbs) psql postgres -c 'select oid,datname from pg_database;' ;;
+dbs) psql -U postgres postgres -c 'select oid,datname from pg_database;' ;;
 *)
   echo "usage: ${name} { start | stop | restart | status | build | dbs }" > /dev/stderr
   exit 64
